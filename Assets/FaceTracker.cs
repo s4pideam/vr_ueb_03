@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenCVForUnity.CoreModule;
@@ -15,9 +16,11 @@ public class FaceTracker : MonoBehaviour
     private Texture2D texture;
     private Mat rgbaMat;
     private Mat grayMat;
+    public Controller controller;
 
     private void Start()
     {
+        
         //obtain cameras avialable
         WebCamDevice[] cam_devices = WebCamTexture.devices;
         //create camera texture
@@ -57,12 +60,28 @@ public class FaceTracker : MonoBehaviour
         //store faces in array
         OpenCVForUnity.CoreModule.Rect[] rects = faces.toArray();
         
+        //controller.updateFaceRect(rects[0]);
         //draw rectangle over all faces
+        OpenCVForUnity.CoreModule.Rect nearestRect = new OpenCVForUnity.CoreModule.Rect();
+        
         for (int i = 0; i < rects.Length; i++)
         {
-           // Debug.Log("detect faces " + rects[i]);
-           Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
+            if (rects[i].area() > nearestRect.area())
+            {
+                nearestRect = rects[i];
+            }
         }
+
+   //     Debug.Log(nearestRect.area());
+
+        if (nearestRect.area() > 0)
+        {
+            Imgproc.rectangle(rgbaMat, new Point(nearestRect.x, nearestRect.y), new Point(nearestRect.x + nearestRect.width, nearestRect.y + nearestRect.height), new Scalar(255, 0, 0, 255), 2);
+            controller.updateFaceRect(nearestRect);
+        }
+
+        // Debug.Log("detect faces " + rects[i]);
+        
         //convert rgb mat back to texture
         Utils.fastMatToTexture2D(rgbaMat, texture);
 

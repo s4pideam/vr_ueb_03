@@ -12,12 +12,13 @@ public class Camera : MonoBehaviour
 
     private CameraMode _cameraMode;
     private Vector3 _oldPosition;
+    private float space = 10.0f;
+    private float camera_velocity = 5.0f; 
     
     // Start is called before the first frame update
     void Start()
     {
         _cameraMode = CameraMode.Third;
-        _oldPosition = target.position;
     }
 
     // Update is called once per frame
@@ -32,19 +33,30 @@ public class Camera : MonoBehaviour
 
     private void LateUpdate()
     {
+        Vector3 direction;
         switch (_cameraMode)
         {
             case CameraMode.First:
-                transform.position = target.position;
-                transform.rotation = target.rotation;
+                if (Vector3.Distance(transform.position, target.position) > 1f)
+                {
+                    direction = target.position;
+                    direction.y += 0.5f;
+                    transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*camera_velocity); 
+                }
+                else
+                {
+                    direction = target.position;
+                    direction.y += 0.5f;
+                    transform.position = direction;
+                }
+
+
                 break;
 
             case CameraMode.Third:
-                _oldPosition.y = target.position.y;
-                Vector3 direction = (target.position - _oldPosition).normalized;
-                transform.position = Vector3.Lerp(transform.position,target.transform.position - (direction * 5f),Time.deltaTime*2f);
-                if (direction == Vector3.zero) break;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime*2f);
+                direction = target.position - Vector3.forward*space;
+                direction.y = MathF.Max(1f, direction.y);
+                transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*camera_velocity);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
