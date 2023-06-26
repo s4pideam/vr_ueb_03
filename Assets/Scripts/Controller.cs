@@ -38,11 +38,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
+        
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         controller.Move(move * (Time.deltaTime * playerSpeed));
@@ -64,9 +60,10 @@ public class Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(controller.isGrounded);
         if (controller.collisionFlags != CollisionFlags.None)
         {
-            SceneManager.LoadScene("Exercise 03",LoadSceneMode.Single);
+        //    SceneManager.LoadScene("Exercise 03",LoadSceneMode.Single);
         }
     }
 }
