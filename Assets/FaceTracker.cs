@@ -1,4 +1,5 @@
 using System;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenCVForUnity.CoreModule;
@@ -16,7 +17,7 @@ public class FaceTracker : MonoBehaviour
     private Texture2D texture;
     private Mat rgbaMat;
     private Mat grayMat;
-    public Controller controller;
+    public PlayerController controller;
 
     private void Start()
     {
