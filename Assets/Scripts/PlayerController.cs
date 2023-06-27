@@ -22,9 +22,16 @@ namespace DefaultNamespace
         private GUIStyle _controlstyle =  new GUIStyle();
         private GUIStyle _scorestyle =  new GUIStyle();
         private int _score = 0;
+        private int webcamWidth = 0;
+        private int webcamHeight = 0;
 
 
-        
+        public void setWebcamDimension(int width, int height)
+        {
+            webcamWidth = width;
+            webcamHeight = height;
+        }
+
         public void updateFaceRect(OpenCVForUnity.CoreModule.Rect faceRect)
         {
             this.faceRect = faceRect;
@@ -114,8 +121,8 @@ namespace DefaultNamespace
                         if (faceRect.area() > 0)
                         {
                             Vector3 face_center = new Vector3(faceRect.x + faceRect.width / 2, faceRect.y + faceRect.height / 2,0f);
-                            float horizontal = remap(0, 960, face_center.x, -2, 2);
-                            float vertical = remap(0, 540, faceRect.height, -2, 2);
+                            float horizontal = remap(0, webcamWidth, face_center.x, -2, 2);
+                            float vertical = remap(0, webcamHeight, faceRect.height, -2, 2);
                             move = new Vector3(-horizontal,-vertical, 0.0001f);
                         }
                     }
@@ -127,8 +134,8 @@ namespace DefaultNamespace
                         if (faceRect.area() > 0)
                         {
                             Vector3 face_center = new Vector3(faceRect.x + faceRect.width / 2, faceRect.y + faceRect.height / 2,0f);
-                            float horizontal = remap(0, 960, face_center.x, -2, 2);
-                            float vertical = remap(0, 540, face_center.y, -2, 2);
+                            float horizontal = remap(0, webcamWidth, face_center.x, -2, 2);
+                            float vertical = remap(0, webcamHeight, face_center.y, -2, 2);
                             move = new Vector3(-horizontal,-vertical, 0.0001f);
                         }
                     }

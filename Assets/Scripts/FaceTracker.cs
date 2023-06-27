@@ -27,7 +27,9 @@ public class FaceTracker : MonoBehaviour
         //create camera texture
         webcamTexture = new WebCamTexture(cam_devices[0].name, 1024, 720, 30);
         //start camera
+        controller.setWebcamDimension(webcamTexture.width,webcamTexture.height);
         webcamTexture.Play();
+        
 
         //rotate RawImage according to rotation of webcamtexture
         this.GetComponent<RectTransform>().Rotate(new Vector3(0, 0, 360 - webcamTexture.videoRotationAngle));
@@ -54,7 +56,6 @@ public class FaceTracker : MonoBehaviour
     {
         // convert webcamtexture to rgb mat
         Utils.webCamTextureToMat(webcamTexture, rgbaMat);
-        
         //convert rgbmat to grayscale
         Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
         //extract faces
@@ -89,10 +90,5 @@ public class FaceTracker : MonoBehaviour
 
         //set rawimage texture
         this.GetComponent<RawImage>().texture = texture;
-    }
-
-    private void OnDestroy()
-    {
-        webcamTexture.Stop();
     }
 }
