@@ -54,7 +54,8 @@ public class Camera : MonoBehaviour
 
             case CameraMode.Third:
                 direction = target.position - Vector3.forward*cameraSpace;
-                direction.y = MathF.Max(1f, direction.y);
+                direction.y = MathF.Max(2f, direction.y+2f);
+                
                 transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*cameraVelocity);
                 break;
             default:

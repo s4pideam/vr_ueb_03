@@ -144,7 +144,7 @@ namespace DefaultNamespace
 
         void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Constraint"))
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("safeCollide"))
             {
                 //Debug.Log(hit.collider.gameObject.layer);
             }else
