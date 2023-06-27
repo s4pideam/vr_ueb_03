@@ -20,6 +20,8 @@ namespace DefaultNamespace
         public ControlStyle controlStyle;
         private GlobalSettings _globalSettings;
         private GUIStyle _controlstyle =  new GUIStyle();
+        private GUIStyle _scorestyle =  new GUIStyle();
+        private int _score = 0;
 
 
         
@@ -50,6 +52,11 @@ namespace DefaultNamespace
             _controlstyle.fontStyle = FontStyle.Bold;
             _controlstyle.normal.textColor = Color.red;
             _controlstyle.alignment = TextAnchor.MiddleCenter;
+            
+            _scorestyle.fontSize = 50;
+            _scorestyle.font = (Font)Resources.Load("SuperMario256");
+            _scorestyle.normal.textColor = Color.blue;
+            _scorestyle.alignment = TextAnchor.MiddleCenter;
         }
         
         
@@ -72,6 +79,7 @@ namespace DefaultNamespace
             }
 
             GUI.Label(new Rect(Screen.width/2 -100, Screen.height -20, 200, 20), _text,_controlstyle);
+            GUI.Label(new Rect(Screen.width/2 -100, 20, 200, 50), "Score " + _score*10,_scorestyle);
         }
         private void Update()
         {
@@ -140,15 +148,23 @@ namespace DefaultNamespace
                 //    SceneManager.LoadScene("Exercise 03",LoadSceneMode.Single);
             }
         }
-        
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Collectible"))
+            {
+                _score++;
+            }
+        }
 
         void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("safeCollide"))
+            Debug.Log(hit.collider.gameObject.layer);
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SafeCollide"))
             {
                 //Debug.Log(hit.collider.gameObject.layer);
-            }else
-            {
+            }else {
                 _globalSettings.velocity = 0;
             }
 
