@@ -7,13 +7,12 @@ public class Camera : MonoBehaviour
 {
     
     public Transform target;
-
+    [Range(5f, 30f)] public float cameraSpace = 10.0f;
+    [Range(1f, 30f)] public float cameraVelocity = 5.0f; 
+    
     private enum CameraMode {Third, First};
-
     private CameraMode _cameraMode;
-    private Vector3 _oldPosition;
-    private float space = 10.0f;
-    private float camera_velocity = 5.0f; 
+
     
     // Start is called before the first frame update
     void Start()
@@ -41,7 +40,7 @@ public class Camera : MonoBehaviour
                 {
                     direction = target.position;
                     direction.y += 0.5f;
-                    transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*camera_velocity); 
+                    transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*cameraVelocity); 
                 }
                 else
                 {
@@ -54,9 +53,9 @@ public class Camera : MonoBehaviour
                 break;
 
             case CameraMode.Third:
-                direction = target.position - Vector3.forward*space;
+                direction = target.position - Vector3.forward*cameraSpace;
                 direction.y = MathF.Max(1f, direction.y);
-                transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*camera_velocity);
+                transform.position = Vector3.Lerp(transform.position,direction,Time.deltaTime*cameraVelocity);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

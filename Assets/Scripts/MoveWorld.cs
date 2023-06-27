@@ -1,36 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MoveWorld : MonoBehaviour
 {
-    private float speed = 10f;
-    // Start is called before the first frame update
+    private GlobalSettings _globalSettings;
+ 
     void Start()
     {
-        
-    }
+        _globalSettings = FindObjectOfType<GlobalSettings>();
 
-    // Update is called once per frame
+    }
     void Update()
     {
+ 
         for (int i = 0; i < transform.childCount; i++)
         {
-            Vector3 pos = transform.GetChild(i).position;
-            pos.z = pos.z - speed*Time.deltaTime;
-            transform.GetChild(i).position = pos;
-        }
-        
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Vector3 pos = transform.GetChild(i).position;
-            if (pos.z <= 0)
+            Transform child = transform.GetChild(i);
+            child.transform.Translate(0,0,-_globalSettings.velocity*Time.deltaTime);
+            if (child.transform.position.z <= 0)
             {
-                pos.z = transform.childCount * 50;
-                transform.GetChild(i).position = pos;    
+                child.transform.Translate(0, 0, transform.childCount * 50);
             }
-
-            
         }
         
     }

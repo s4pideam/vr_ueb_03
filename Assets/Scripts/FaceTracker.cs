@@ -54,6 +54,7 @@ public class FaceTracker : MonoBehaviour
     {
         // convert webcamtexture to rgb mat
         Utils.webCamTextureToMat(webcamTexture, rgbaMat);
+        
         //convert rgbmat to grayscale
         Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
         //extract faces
@@ -88,5 +89,10 @@ public class FaceTracker : MonoBehaviour
 
         //set rawimage texture
         this.GetComponent<RawImage>().texture = texture;
+    }
+
+    private void OnDestroy()
+    {
+        webcamTexture.Stop();
     }
 }

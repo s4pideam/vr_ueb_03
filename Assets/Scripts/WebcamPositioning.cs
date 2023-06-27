@@ -7,35 +7,36 @@ using UnityEngine.UI;
 
 public class WebcamPositioning : MonoBehaviour
 {
-    private int positionIndex;
+    private int _positionIndex;
     private RectTransform  _rectTransform;
+    private RawImage  _rawImage;
     void Start()
     {
-        positionIndex = 0;
+        _positionIndex = 0;
         _rectTransform = transform.GetChild(0).transform.GetComponent<RectTransform>();
-        setLocalCornerByIndex(positionIndex);
+        _rawImage = transform.GetChild(0).transform.GetComponent<RawImage>();
+        SetLocalCornerByIndex(_positionIndex);
     }
 
-    void setLocalCornerByIndex(int i)
+    private void SetLocalCornerByIndex(int i)
     {
-        var vertical = (RectTransform.Edge)(positionIndex % 2 +2);
-        var horizontal = (RectTransform.Edge)(positionIndex/2);
+        var vertical = (RectTransform.Edge)(_positionIndex % 2 +2);
+        var horizontal = (RectTransform.Edge)(_positionIndex/2);
         _rectTransform.SetInsetAndSizeFromParentEdge(horizontal, 0, _rectTransform.rect.width);
         _rectTransform.SetInsetAndSizeFromParentEdge(vertical, 0, _rectTransform.rect.height);
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.GetKeyDown("v"))
         {
-            positionIndex = ++positionIndex % 4;
-            setLocalCornerByIndex(positionIndex);
+            _positionIndex = ++_positionIndex % 4;
+            SetLocalCornerByIndex(_positionIndex);
         }
         
         if (Input.GetKeyDown("h"))
         {
-            _rectTransform.gameObject.SetActive(!_rectTransform.gameObject.activeInHierarchy);
+            _rawImage.enabled = (!_rawImage.enabled);
         }
     }
 }
