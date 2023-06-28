@@ -28,7 +28,6 @@ public class FaceTracker : MonoBehaviour
         webcamTexture = new WebCamTexture(cam_devices[0].name, 1024, 720, 30);
         //start camera
         controller.setWebcamDimension(webcamTexture.width,webcamTexture.height);
-        controller.setWebcamTexture(webcamTexture);
         webcamTexture.Play();
         
 
@@ -91,5 +90,13 @@ public class FaceTracker : MonoBehaviour
 
         //set rawimage texture
         this.GetComponent<RawImage>().texture = texture;
+    }
+
+    private void OnDestroy()
+    {
+        if (webcamTexture)
+        {
+            webcamTexture.Stop();
+        }
     }
 }

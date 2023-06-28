@@ -17,7 +17,6 @@ namespace DefaultNamespace
         
         private OpenCVForUnity.CoreModule.Rect faceRect ;
         private CharacterController controller;
-        private WebCamTexture webcamTexture;
         public ControlStyle controlStyle;
         private GlobalSettings _globalSettings;
         private GUIStyle _controlstyle =  new GUIStyle();
@@ -33,11 +32,6 @@ namespace DefaultNamespace
             webcamHeight = height;
         }
 
-        public void setWebcamTexture(WebCamTexture webcamTexture)
-        {
-            this.webcamTexture = webcamTexture;
-        }
-        
 
         public void updateFaceRect(OpenCVForUnity.CoreModule.Rect faceRect)
         {
@@ -99,7 +93,6 @@ namespace DefaultNamespace
         {
             if (Input.GetKeyDown("r"))
             {
-                webcamTexture.Stop();
                 SceneManager.LoadScene("Exercise 03",LoadSceneMode.Single);
             }
 
