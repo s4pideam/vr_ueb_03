@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{2df99925-4ee2-4eb0-88ac-50c90da1a8bc}">
+		<property name="assetPath">
+			<value>Oboe.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>119.52</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{85c48be7-daa4-4b48-b62b-f8acbba324f9}</destination>
+		</relationship>
+	</object>
+</objects>

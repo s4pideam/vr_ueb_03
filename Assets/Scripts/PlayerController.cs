@@ -162,6 +162,7 @@ namespace DefaultNamespace
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Collectible"))
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/sfx", transform.position);
                 _score++;
             }
         }
@@ -169,7 +170,7 @@ namespace DefaultNamespace
         void OnControllerColliderHit(ControllerColliderHit hit)
         {
             //Debug.Log(hit.collider.gameObject.layer);
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SafeCollide"))
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SafeCollide") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Through"))
             {
                 //Debug.Log(hit.collider.gameObject.layer);
             }else {
