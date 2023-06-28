@@ -18,18 +18,19 @@ public class FaceTracker : MonoBehaviour
     private Mat rgbaMat;
     private Mat grayMat;
     public PlayerController controller;
-
+ 
     private void Start()
     {
         
         //obtain cameras avialable
         WebCamDevice[] cam_devices = WebCamTexture.devices;
         //create camera texture
-        webcamTexture = new WebCamTexture(cam_devices[0].name, 1024, 720, 30);
+        webcamTexture = new WebCamTexture(cam_devices[0].name, 1024, 720, 10);
         //start camera
-        controller.setWebcamDimension(webcamTexture.width,webcamTexture.height);
-        webcamTexture.Play();
         
+  
+        webcamTexture.Play();
+        controller.setWebcamDimension(webcamTexture.width,webcamTexture.height);
 
         //rotate RawImage according to rotation of webcamtexture
         this.GetComponent<RectTransform>().Rotate(new Vector3(0, 0, 360 - webcamTexture.videoRotationAngle));
@@ -54,6 +55,7 @@ public class FaceTracker : MonoBehaviour
 
     private void Update()
     {
+  
         // convert webcamtexture to rgb mat
         Utils.webCamTextureToMat(webcamTexture, rgbaMat);
         //convert rgbmat to grayscale
