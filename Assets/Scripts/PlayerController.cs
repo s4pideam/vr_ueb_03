@@ -17,6 +17,7 @@ namespace DefaultNamespace
         
         private OpenCVForUnity.CoreModule.Rect faceRect ;
         private CharacterController controller;
+        private WebCamTexture webcamTexture;
         public ControlStyle controlStyle;
         private GlobalSettings _globalSettings;
         private GUIStyle _controlstyle =  new GUIStyle();
@@ -31,6 +32,12 @@ namespace DefaultNamespace
             webcamWidth = width;
             webcamHeight = height;
         }
+
+        public void setWebcamTexture(WebCamTexture webcamTexture)
+        {
+            this.webcamTexture = webcamTexture;
+        }
+        
 
         public void updateFaceRect(OpenCVForUnity.CoreModule.Rect faceRect)
         {
@@ -92,6 +99,7 @@ namespace DefaultNamespace
         {
             if (Input.GetKeyDown("r"))
             {
+                webcamTexture.Stop();
                 SceneManager.LoadScene("Exercise 03",LoadSceneMode.Single);
             }
 
@@ -167,7 +175,7 @@ namespace DefaultNamespace
 
         void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            Debug.Log(hit.collider.gameObject.layer);
+            //Debug.Log(hit.collider.gameObject.layer);
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SafeCollide"))
             {
                 //Debug.Log(hit.collider.gameObject.layer);
